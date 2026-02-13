@@ -1,0 +1,100 @@
+{"qtype": "k_hop", "node": "yentinglin/TaiwanChat", "k": 5, "direction": "out"}
+{"qtype": "descendants", "node": "bunnycore/FuseQwQen-7B", "k": 5}
+{"qtype": "ancestors", "node": "MikuMasterRace/Hatsune_Miku_-_Neko_and_Brite_-_Fortnite_-_IllustriousXL_v2", "k": 10}
+{"qtype": "ancestors", "node": "cis-lmu/Glot500", "k": 2}
+{"qtype": "ancestors", "node": "jkazdan/128R-256F-gemma-2-2b_hs2_iter1_sftsd1", "k": 5}
+{"qtype": "ancestors", "node": "RefalMachine/solar_10.7_saiga_lora", "k": 2}
+{"qtype": "k_hop", "node": "IgorVolochay/russian_jokes", "k": 10, "direction": "out"}
+{"qtype": "descendants", "node": "tuanna08go/ff34825d-d226-4b29-80c4-e1fcab3fbe85", "k": 5}
+{"qtype": "k_hop", "node": "cyrp/distilbert-base-uncased-gnad10", "k": 2, "direction": "in"}
+{"qtype": "descendants", "node": "Intel/dpt-large", "k": 3}
+{"qtype": "ancestors", "node": "filipesantoscv11/acaa61c2-f2d3-4c7c-b117-97ae0271b51b", "k": 3}
+{"qtype": "descendants", "node": "dylanewbie/whisper-large-v2-ft-cv16-1__car200-e3n4-A50B100_car100-n4r2_car50-r2n2_owner12-copy2x-250308-v1", "k": 10}
+{"qtype": "k_hop", "node": "LeroyDyer/SpydazWeb_AI_DolphinCoder_7b", "k": 10, "direction": "out"}
+{"qtype": "ancestors", "node": "mradermacher/koala-7B-HF-i1-GGUF", "k": 2}
+{"qtype": "ancestors", "node": "inclusionAI/Ming-Lite-Omni", "k": 2}
+{"qtype": "ancestors", "node": "deepseek-ai/DeepSeek-V2.5", "k": 5}
+{"qtype": "descendants", "node": "bullerwins/Mistral-Large-Instruct-2411-exl2_5.5bpw", "k": 5}
+{"qtype": "descendants", "node": "saresri/opt350m-lora-pruned-magnited-2-4", "k": 2}
+{"qtype": "k_hop", "node": "mradermacher/openbuddy-zero-3b-v21.2-32k-i1-GGUF", "k": 2, "direction": "in"}
+{"qtype": "ancestors", "node": "damiam/bge-base-en-v1.5-few-shot-sex", "k": 5}
+{"qtype": "descendants", "node": "chchen/Qwen2.5-7B-Instruct-PsyCourse-doc-fold9", "k": 2}
+{"qtype": "ancestors", "node": "multimolecule/ribonanzanet-deg", "k": 2}
+{"qtype": "descendants", "node": "cognitivecomputations/dolphin-2.8-experiment26-7b", "k": 3}
+{"qtype": "ancestors", "node": "sajjadhadi/Disease-Diagnosis-DeepSeek-R1-Distill-Llama-8B", "k": 10}
+{"qtype": "descendants", "node": "ghost613/faster-whisper-large-v3-turbo-korean", "k": 5}
+{"qtype": "k_hop", "node": "NikolayKozloff/OpenThinker3-7B-Q8_0-GGUF", "k": 10, "direction": "in"}
+{"qtype": "ancestors", "node": "mradermacher/Llama-3-8B-TitanFusion-Mix-2-GGUF", "k": 3}
+{"qtype": "descendants", "node": "mradermacher/Llama-3.1-1-million-ctx-DeepHermes-Deep-Reasoning-8B-GGUF", "k": 10}
+{"qtype": "descendants", "node": "passing2961/Thanos-1B", "k": 10}
+{"qtype": "descendants", "node": "Qwen/Qwen2.5-Coder-14B-Instruct", "k": 2}
+{"qtype": "descendants", "node": "nanom/bert_adaptation_peppa_pig", "k": 10}
+{"qtype": "descendants", "node": "dimasik2987/2759e2ad-d801-4355-86be-2ce7adeb5178", "k": 3}
+{"qtype": "descendants", "node": "appvoid/merging-x1", "k": 2}
+{"qtype": "ancestors", "node": "SpongeEngine/Qwen2.5-32B-Instruct-abliterated-v2-i1-GGUF", "k": 3}
+{"qtype": "k_hop", "node": "roneneldan/TinyStories-33M", "k": 3, "direction": "in"}
+{"qtype": "ancestors", "node": "vertings6/d6f47dab-0449-499f-aac4-5883beeb6783", "k": 10}
+{"qtype": "k_hop", "node": "aleegis10/73d2f850-7041-4849-8e5f-ca8d9d885c69", "k": 3, "direction": "in"}
+{"qtype": "k_hop", "node": "mlabonne/NeuralLlama-3-8B-Instruct-abliterated", "k": 2, "direction": "out"}
+{"qtype": "k_hop", "node": "mradermacher/bloom-7b1-GGUF", "k": 2, "direction": "out"}
+{"qtype": "ancestors", "node": "E-katrin/train20_0_check", "k": 5}
+{"qtype": "k_hop", "node": "Exisfar/Meta-Llama-3.1-8B-Instruct-Q4_K_M-GGUF", "k": 2, "direction": "in"}
+{"qtype": "ancestors", "node": "shahrukh95/Llama-2-7b-Set-2-cybersecurity-layered-config", "k": 5}
+{"qtype": "ancestors", "node": "HuggingFaceTB/SmolVLM-256M-Instruct", "k": 5}
+{"qtype": "ancestors", "node": "unsloth/Qwen2.5-Coder-14B-Instruct", "k": 3}
+{"qtype": "descendants", "node": "YWZBrandon/flan-t5-large", "k": 2}
+{"qtype": "descendants", "node": "yang-z/CodeV-CL-7B", "k": 5}
+{"qtype": "k_hop", "node": "ShynBui/s4", "k": 2, "direction": "out"}
+{"qtype": "descendants", "node": "deshanksuman/finetuned-WSD-llama3-8b-Instruct_fews_semcor", "k": 10}
+{"qtype": "k_hop", "node": "Trelis/function_calling_v3", "k": 2, "direction": "in"}
+{"qtype": "ancestors", "node": "wsbagnsv1/SkyReels-V2-I2V-14B-540P-GGUF", "k": 10}
+{"qtype": "ancestors", "node": "mradermacher/OrpoLlama3-8B-FT-GGUF", "k": 5}
+{"qtype": "descendants", "node": "N-o-1/pokemon-images", "k": 2}
+{"qtype": "k_hop", "node": "gayanin/pubmed-abs-sub-05", "k": 3, "direction": "in"}
+{"qtype": "descendants", "node": "TheBloke/Norobara-ZLoss-8x7B-AWQ", "k": 10}
+{"qtype": "descendants", "node": "davidschulte/ESM_nguha__legalbench_citation_prediction_open", "k": 5}
+{"qtype": "ancestors", "node": "mlfoundations-dev/oh-dcft-v3.1-llama-3.1-nemotron-70b-qwen", "k": 2}
+{"qtype": "ancestors", "node": "Tomasal/OLMoE-1B-7B-0125-Instruct-enron", "k": 2}
+{"qtype": "ancestors", "node": "Goekdeniz-Guelmez/J.O.S.I.E.v4o", "k": 3}
+{"qtype": "descendants", "node": "patruff/dpo_mistral_nemo_fromSFT", "k": 2}
+{"qtype": "k_hop", "node": "vibraniumdome/deberta-v3-base-optimus-v0", "k": 10, "direction": "in"}
+{"qtype": "k_hop", "node": "halcyon-llm/SmolLM2-360M-japanese_token-11403", "k": 5, "direction": "in"}
+{"qtype": "k_hop", "node": "ansilmbabl/xml-forsta-suvery-train-0.0.2-merged_16bit", "k": 5, "direction": "out"}
+{"qtype": "ancestors", "node": "infogeo/9a382448-7812-48b0-bdb2-f7e13af80bfe", "k": 2}
+{"qtype": "k_hop", "node": "stefan-it/hmbench-ajmc-en-hmteams-bs4-wsFalse-e10-lr5e-05-poolingfirst-layers-1-crfFalse-1", "k": 3, "direction": "in"}
+{"qtype": "ancestors", "node": "minpeter/LoRA-HCX-3b-sf-xlam-00", "k": 3}
+{"qtype": "descendants", "node": "NeverSleep/Lumimaid-v0.2-70B", "k": 5}
+{"qtype": "descendants", "node": "neurlang/phonetic", "k": 5}
+{"qtype": "descendants", "node": "vertings6/eee2e11f-ac7b-4b9b-aee8-ad7a32b42813", "k": 3}
+{"qtype": "descendants", "node": "mradermacher/Llama_3.1_8b_DodoWild_v2.03-GGUF", "k": 5}
+{"qtype": "descendants", "node": "MaziyarPanahi/Experiment26Neuralsirkrishna_Strangemerges_32Strangemerges_30", "k": 5}
+{"qtype": "descendants", "node": "ai-forever/ruT5-base", "k": 10}
+{"qtype": "ancestors", "node": "ytu-ce-cosmos/Turkish-Llama-8b-Instruct-v0.1", "k": 5}
+{"qtype": "descendants", "node": "romainnn/7c96bcdb-e360-431b-8a71-12efe4b4bc1b", "k": 3}
+{"qtype": "descendants", "node": "VERSIL91/45874826-f780-4b64-9a1e-d3572021c8ad", "k": 3}
+{"qtype": "k_hop", "node": "mradermacher/llama-3-neural-chat-v2.2-8B-GGUF", "k": 2, "direction": "in"}
+{"qtype": "descendants", "node": "infogeo/196a15eb-06dd-4cd5-8b2a-190a8cb6eaeb", "k": 5}
+{"qtype": "k_hop", "node": "mradermacher/samantha-1.1-llama-7b-GGUF", "k": 5, "direction": "in"}
+{"qtype": "descendants", "node": "Universal-NER/Pile-NER-type", "k": 2}
+{"qtype": "k_hop", "node": "kanhatakeyama/AutoMultiTurnByMixtral8x22b", "k": 2, "direction": "out"}
+{"qtype": "ancestors", "node": "sergioalves/89f3575c-dce8-45e7-a4ae-3f22a961b99b", "k": 3}
+{"qtype": "k_hop", "node": "mnemic/BatmanCore-PDXL-LoRA", "k": 3, "direction": "in"}
+{"qtype": "k_hop", "node": "ivangrapher/b05d90d4-020e-4bfc-bdf1-b1df1f1a1a90", "k": 10, "direction": "in"}
+{"qtype": "k_hop", "node": "silent666/Qwen-Qwen1.5-7B-1718381002", "k": 5, "direction": "in"}
+{"qtype": "ancestors", "node": "jahyungu/Falcon3-7B-Instruct_ocg", "k": 5}
+{"qtype": "k_hop", "node": "PrunaAI/milyausha2801-SmolLM2-FT-smoltalk-bnb-8bit-smashed", "k": 3, "direction": "in"}
+{"qtype": "descendants", "node": "tejp/fine-tuned", "k": 2}
+{"qtype": "ancestors", "node": "tonyzhang666/dc-ae-f32c32-in-1.0-w4-v4", "k": 3}
+{"qtype": "descendants", "node": "omarmomen/structformer_s2_final_with_pos", "k": 3}
+{"qtype": "k_hop", "node": "vdos/dfd28e65-6a48-4ec3-9ffd-feec646d0d69", "k": 5, "direction": "out"}
+{"qtype": "ancestors", "node": "ritendub/zephyr-beta-new-model", "k": 5}
+{"qtype": "descendants", "node": "wyceee/Qwen2.5-1.5B-Instruct-Gensyn-Swarm-deadly_galloping_hamster", "k": 3}
+{"qtype": "descendants", "node": "cardiffnlp/twitter-xlm-roberta-base-sentiment", "k": 3}
+{"qtype": "descendants", "node": "keplersystems/poetry-llama-3.3-70B-LoRA", "k": 10}
+{"qtype": "descendants", "node": "cognitivecomputations/dolphin-2.9.3-qwen2-1.5b", "k": 5}
+{"qtype": "k_hop", "node": "nhungphammmmm/29645f83-190e-4521-9234-24ceb529e405", "k": 3, "direction": "in"}
+{"qtype": "descendants", "node": "Orion-zhen/Meissa-Qwen2.5-7B-Instruct-Q5_K_M-GGUF", "k": 2}
+{"qtype": "ancestors", "node": "PrunaAI/AmberYifan-Mistral-7B-v0.3-sft-SPIN-self-bnb-8bit-smashed", "k": 3}
+{"qtype": "k_hop", "node": "numind/NuNER_Zero-span", "k": 10, "direction": "in"}
+{"qtype": "ancestors", "node": "Cran-May/T.E-8.1", "k": 2}
+{"qtype": "ancestors", "node": "PrunaAI/jameselmore-phi-agreeable-bnb-8bit-smashed", "k": 10}

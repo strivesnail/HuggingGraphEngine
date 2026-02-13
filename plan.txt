@@ -1,0 +1,301 @@
+## 0. 项目目标与约束
+
+**目标**：做一个 **in-memory lineage-specific query engine**，支持
+
+* `ancestors(v)` / `descendants(v)` / `k_hop(v,k)`
+  并在真实 workload 下做 benchmark，对比 baseline vs 优化版本。
+
+**约束**：输入只有 `graph.dot`（Graphviz DOT），图很大（40万+节点的可能性），先单线程 CPU。
+
+---
+
+# Phase 1：数据输入与清洗（DOT → 边列表）
+
+## 1.1 读取 DOT 文件（Streaming 方式）
+
+DOT 文件行格式类似：
+
+```dot
+"A" -> "B" [label="trained_on"];
+```
+
+**做法**：逐行读取，正则/字符串解析出：
+
+* `src`（引号内左侧）
+* `dst`（引号内右侧）
+* `label`（`trained_on` 等）
+
+**注意点（你必须处理）**：
+
+* **自环**：`A -> A`（可保留或过滤，建议默认过滤）
+* **脏节点**：有些节点末尾带 `.`（你贴的例子里有），需要决定：
+
+  * 方案A：当作不同节点（最安全）
+  * 方案B：做归一化（风险：误合并）
+    ✅ 建议：先不归一化，只记录“疑似重复”的统计
+* **重复边**：同一条边可能出现多次，建议去重（否则 BFS 会重复扫描）
+
+## 1.2 输出统一的边列表文件（中间产物）
+
+生成一个 `edges.tsv`：
+
+```
+src<TAB>dst<TAB>label
+```
+
+并在生成时顺带输出统计日志 `stats.json`：
+
+* edge_count_raw / edge_count_dedup
+* self_loop_count
+* label 分布（trained_on占比）
+* top 出度节点（粗略）
+
+**交付物**：
+
+* `edges.tsv`
+* `stats.json`
+
+---
+
+# Phase 2：图加载到内存（ID 映射 + 邻接结构）
+
+## 2.1 节点 ID 映射（string → int）
+
+因为节点名很长（HF repo 名），BFS 必须用 int 才快。
+
+* 维护 `dict: name -> id`
+* `list: id -> name`（方便输出路径/结果）
+
+**交付物**：
+
+* `node2id.json`（可选，方便复现实验）
+* `id2node.txt`（可选）
+
+## 2.2 构建 forward / reverse 邻接表
+
+你至少需要两份：
+
+* `out_adj[u] = [v1, v2, ...]` 用于 descendants
+* `in_adj[v]  = [u1, u2, ...]` 用于 ancestors
+
+先用 adjacency list（list of lists）就够做 baseline。
+后续优化再转 CSR（Phase 5）。
+
+**交付物**：
+
+* 内存中的 `Graph` 对象（含 out_adj/in_adj）
+
+---
+
+# Phase 3：查询接口设计（API + 结果格式）
+
+建议你定义一个最小接口（系统味很强）：
+
+## 3.1 Query APIs
+
+* `ancestors(node, max_hops=None, limit=None) -> NodeSet`
+* `descendants(node, max_hops=None, limit=None) -> NodeSet`
+* `k_hop(node, k, direction="out"|"in") -> NodeSet`
+* （可选）`shortest_path(src, dst, direction="out") -> Path`
+
+**参数说明**（很重要，写在文档里）：
+
+* `max_hops`: None 表示全图可达集合；k-hop 则限定
+* `limit`: 超过阈值提前停止（用于 worst-case 控制）
+* `direction`: out=向下游传播，in=向上游追溯
+
+## 3.2 结果结构（建议统一）
+
+返回不要直接返回字符串集合，返回结构体：
+
+* `nodes`: list[int] 或 bitmap
+* `visited_count`
+* `hops_reached`
+* `elapsed_ms`
+
+这样 benchmark 更方便。
+
+**交付物**：
+
+* `engine.py` / `engine.cpp`（你的 Query Engine 文件）
+* `README: API spec`
+
+---
+
+# Phase 4：Benchmark 框架（可重复、可对比）
+
+你需要一个单独的 `benchmark/` 模块，包含：
+
+## 4.1 Query Workload 生成
+
+至少两类 workload：
+
+### (A) Random workload（均匀抽样）
+
+* 从节点集合均匀采样 N 个 query 节点
+
+### (B) Hot workload（热点节点）
+
+* 从 top-degree 节点中采样（比如 top 1% 出度）
+* 这类最能体现 heavy-tailed 下 BFS 爆炸
+
+### (C) Mixed workload（更真实）
+
+* 80% random + 20% hot（或 90/10）
+
+同时定义 k 值集合：
+
+* `k in {2, 3, 5, 10}`
+
+输出 `workload.jsonl`，每行一个 query：
+
+```json
+{"qtype":"descendants","node":"LLaMA-2","k":5}
+```
+
+## 4.2 指标与输出
+
+每跑完一个 workload，输出：
+
+* p50/p95/p99 latency（ms）
+* avg visited nodes
+* avg frontier size（如果你记录了）
+* QPS（queries/sec）
+* memory footprint（粗略也行）
+
+输出文件：
+
+* `results.csv`
+* `summary.md`（自动生成几段结论，presentation 很好用）
+
+**交付物**：
+
+* `benchmark_runner`
+* `workload_generator`
+* `results.csv`
+
+---
+
+# Phase 5：定制优化实验路线（你可以逐个开关对比）
+
+下面是**最适合你 workload**、且实现难度从低到高的优化尝试清单。你不需要全做，选 2–4 个就能讲出研究味。
+
+---
+
+## 优化 1：更好的 visited（高收益/低风险）
+
+问题：每次查询清空 visited 很慢。
+方案：
+
+* 用 `visited_epoch[id]` + `current_epoch++` 代替清空数组
+* 或 bitset（但 epoch 更简单）
+
+**对比**：baseline vs epoch visited
+
+---
+
+## 优化 2：CSR / CSC 存储（中等工作量，收益稳定）
+
+把 adjacency list 转成 CSR（连续内存）：
+
+* `offsets[n+1]`
+* `neighbors[m]`
+
+做双份：
+
+* forward CSR
+* reverse CSR
+
+**收益**：cache locality 明显改善，BFS 更快、更稳定。
+
+---
+
+## 优化 3：degree-aware traversal（专治 super-node）
+
+对出度超过阈值的节点（例如 top 0.1%）：
+
+* 单独处理队列
+* 或分块扫描邻居（chunked expansion）
+* 或设置 “frontier cap / early stop”（只对 benchmark 场景）
+
+**收益**：p95/p99 latency 下降明显，讲起来很有系统味。
+
+---
+
+## 优化 4：热点结果缓存（最贴 workload）
+
+对 top-K 热点节点缓存：
+
+* `descendants(v)` 的结果（或仅 size）
+* `ancestors(v)` 的结果（或仅 size）
+
+缓存结构建议：
+
+* 简单版本：sorted int list
+* 省内存版本：bitmap（Roaring/bitset）
+
+**关键**：报告缓存命中率 + 加速比。
+
+---
+
+## 优化 5：动态更新支持（加分项）
+
+你先只做增边 `add_edge(u,v)`，不做复杂索引维护。
+
+做一个现实策略：
+
+* 增边后，将与 v 或 u 相关的缓存标记失效（lazy invalidation）
+* 或按 batch 更新后统一清缓存（更简单）
+
+**对比**：更新频率 vs 查询性能
+
+---
+
+# Phase 6：最终交付物与 presentation 要点
+
+## 6.1 代码结构建议（干净）
+
+```
+project/
+  data/
+    graph.dot
+    edges.tsv
+  src/
+    parser.py
+    graph.py
+    engine.py
+    optim/
+      csr.py
+      cache.py
+      degree_aware.py
+  benchmark/
+    gen_workload.py
+    run_bench.py
+    workloads/
+    results/
+  report/
+    figures/
+    slides_outline.md
+```
+
+## 6.2 你最后展示的“故事线”
+
+1. supply chain 图 + lineage 查询很常见
+2. baseline BFS 在 heavy-tailed 下 p95 爆炸
+3. 我做了 in-memory engine + workload benchmark
+4. 针对 workload 做了 X 个优化（例如 CSR + hot cache + degree-aware）
+5. latency/QPS 显著提升，且支持动态增边（哪怕是简单版本）
+
+---
+
+# 我建议你最小可行版本（MVP）
+
+如果你时间紧，按这个最小组合做，也完全能讲：
+
+✅ DOT → edges.tsv → in-memory adj
+✅ ancestors/descendants/k-hop API
+✅ benchmark：random + hot
+✅ 优化只做两个：`epoch visited` + `CSR`（或 `hot cache`）
+
+这样就已经是“系统原型 + 定量评估”。
+

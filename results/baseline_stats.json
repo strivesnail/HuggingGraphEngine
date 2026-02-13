@@ -1,0 +1,10 @@
+{
+  "total_queries": 100,
+  "latency_p50_ms": 0.0,
+  "latency_p95_ms": 0.0,
+  "latency_p99_ms": 0.9999275207519531,
+  "latency_avg_ms": 0.01998424530029297,
+  "latency_min_ms": 0.0,
+  "latency_max_ms": 0.9999275207519531,
+  "avg_visited_nodes": 30.36
+}
